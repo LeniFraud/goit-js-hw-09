@@ -11,15 +11,11 @@ submitBtn.addEventListener('click', onSubmitBtnClick);
 function onSubmitBtnClick(event) {
   event.preventDefault();
 
-  const formData = {
-    start: Number(delay.value),
-    growth: Number(step.value),
-    amt: Number(amount.value),
-  };
-
-  const { start, growth, amt } = formData;
-
-  for (let i = 1, delayTime = start; i <= amt; i += 1, delayTime += growth) {
+  for (
+    let i = 1, delayTime = Number(delay.value);
+    i <= Number(amount.value);
+    i += 1, delayTime += Number(step.value)
+  ) {
     createPromise(i, delayTime).then(onSuccess).catch(onError);
   }
 }
@@ -45,25 +41,3 @@ function onSuccess(result) {
 function onError(error) {
   Notify.failure(error);
 }
-
-// function createPromise(position, delay) {
-//   const promise = new Promise((resolve, reject) => {
-//     const shouldResolve = Math.random() > 0.3;
-
-//     setTimeout(() => {
-//       if (shouldResolve) {
-//         resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//       }
-
-//       reject(`❌ Rejected promise ${position} in ${delay}ms`);
-//     }, delay);
-//   });
-
-//   promise
-//     .then(result => {
-//       Notify.success(`${result}`);
-//     })
-//     .catch(error => {
-//       Notify.failure(`${error}`);
-//     });
-// }
